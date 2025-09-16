@@ -1,29 +1,34 @@
-#include <vector>
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-
-// TODO: Понять как генерируются пермутации и сабсеты, потыкать бэктрекинг, посмотреть видео про него
-
-vector<int> v = {1, 2, 3, 4, 5};
-
-int sum(const vector<int>& v, int i = 0) {
-  if (i == v.size()) return 0;
-  return v[i] + sum(v, i + 1);
+bool safe(int row, int col, vector<int>& cols) {
+  for (int prev = 0; prev < row; prev++) {
+    if (cols[prev] == col) return false;
+    if (abs(row - prev) == abs(col - cols[prev])) return false;
+  }
+  return true;
 }
 
-int cnt(const vector<int>& v, int i = 0) {
-  if (i == v.size()) return 0;
-  return 1 + cnt(v, i + 1);
+void solve(vector<vector<int>>& solutions, int row, int n, vector<int>& cols) {
+  if (row == n) {
+    solutions.push_back(cols);
+  }
+  for (int col = 0; col < n; col++) {
+    if (safe(row, col, cols)) {
+      cols[row] = col;
+      solve(solutions, row + 1, n, cols);
+    }
+  }
 }
-
-int mx(const vector<int>& v, const int i = 0) {
-  if (i == v.size() - 1) return v[i];
-  return max(v[i], mx(v, i + 1));
-}
-
 
 int main() {
-  cout << mx(v) << endl;
+  int n; cin >> n;
+  vector<vector<int>> solutions;
+  vector<int> cols(n);
+
+  solve(solutions, 0, n, cols);
+
+  cout << solutions.size() << endl;
+
   return 0;
 }
