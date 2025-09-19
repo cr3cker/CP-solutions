@@ -1,4 +1,4 @@
-// https://cses.fi/problemset/task/1623
+// https://codeforces.com/contest/2148/problem/D
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -8,21 +8,28 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-  ll n; cin >> n;
+  int n; cin >> n;
   vector<ll> v(n);
-  for (ll i = 0; i < n; i++) cin>> v[i];
+  ll sum = 0;
+  ll odd = 0;
+  ll min_odd = LLONG_MAX;
 
-  ll mn = INT64_MAX;
-  for (ll i = 0; i < (1LL << n); i++) {
-    ll sum1 = 0; ll sum2 = 0;
-    for (ll j = 0; j < n; j++) {
-      if (i & (1 << j)) sum1 += v[j];
-      else sum2 += v[j];
+  for (int i = 0; i < n; i++) {
+    cin >> v[i];
+    sum += v[i];
+    if (v[i] % 2 == 1) {
+      odd++;
+      min_odd = min(min_odd, v[i]);
     }
-    mn = min(mn, abs(sum1 - sum2));
   }
 
-  cout << mn << endl;
+  if (odd == 0) {
+    cout << 0 << "\n";
+  } else if (odd % 2 == 1) {
+    cout << sum << "\n";
+  } else {
+    cout << sum - min_odd << "\n";
+  }
 }
 
 int main() {
@@ -33,7 +40,7 @@ int main() {
 #endif
 
   ll test=1;
-  // cin>>test;
+  cin>>test;
   while(test--)
   {
     solve();

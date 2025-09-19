@@ -9,27 +9,17 @@ using namespace std;
 void solve() {
   int x, y, m; cin >> x >> y >> m;
 
-  vec<int> v1;
-  vec<int> v2;
-
-  for (int i = 0; i < m / x; i++) {
-    v1.push_back(x);
-  }
-
-  for (int i = 0; i < m / y; i++) {
-    v1.push_back(y);
-  }
-
-  int mx = 0;
-  for (int i = 0; i < v1.size(); i++) {
-    int sum = v1[i];
-    for (int j = 0; j < v1.size(); j++) {
-      if (i != j && sum + v1[j] <= m) sum += v1[j];
+  int closest = 0;
+  for (int first = 0; first <= m; first++) {
+    if (x * first > m) { break; }
+    for (int second = 0; second <= m; second++) {
+      int n = (x * first) + (y * second);
+      if (n > m) { break; }
+      closest = max(closest, n);
     }
-    mx = max(mx, sum);
   }
 
-  cout << mx << endl;
+  cout << closest << endl;
 }
 
 int main() {

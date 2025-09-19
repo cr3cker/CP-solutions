@@ -1,4 +1,4 @@
-// https://cses.fi/problemset/task/1623
+// https://cses.fi/problemset/task/1640
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -8,21 +8,18 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-  ll n; cin >> n;
-  vector<ll> v(n);
-  for (ll i = 0; i < n; i++) cin>> v[i];
-
-  ll mn = INT64_MAX;
-  for (ll i = 0; i < (1LL << n); i++) {
-    ll sum1 = 0; ll sum2 = 0;
-    for (ll j = 0; j < n; j++) {
-      if (i & (1 << j)) sum1 += v[j];
-      else sum2 += v[j];
+  int n, x; cin >> n >> x;
+  map<int, int> m;
+  for (int i = 0; i < n; i++) {
+    int a; cin >> a;
+    if (m.count(x - a)) {
+      cout << i + 1 << " " << m[x - a] << endl;
+      return;
     }
-    mn = min(mn, abs(sum1 - sum2));
+    m[a] = i + 1;
   }
 
-  cout << mn << endl;
+  cout << "IMPOSSIBLE" << endl;
 }
 
 int main() {

@@ -1,4 +1,4 @@
-// https://cses.fi/problemset/task/1623
+// https://codeforces.com/contest/2148/problem/A
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -8,21 +8,9 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-  ll n; cin >> n;
-  vector<ll> v(n);
-  for (ll i = 0; i < n; i++) cin>> v[i];
-
-  ll mn = INT64_MAX;
-  for (ll i = 0; i < (1LL << n); i++) {
-    ll sum1 = 0; ll sum2 = 0;
-    for (ll j = 0; j < n; j++) {
-      if (i & (1 << j)) sum1 += v[j];
-      else sum2 += v[j];
-    }
-    mn = min(mn, abs(sum1 - sum2));
-  }
-
-  cout << mn << endl;
+  int x, n; cin >> x >> n;
+  if (n % 2 == 0) cout << 0 << endl;
+  else cout << x << endl;
 }
 
 int main() {
@@ -33,7 +21,7 @@ int main() {
 #endif
 
   ll test=1;
-  // cin>>test;
+  cin>>test;
   while(test--)
   {
     solve();

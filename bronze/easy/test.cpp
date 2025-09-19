@@ -1,34 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define mod 1000000007
+#define vec vector
 
-bool safe(int row, int col, vector<int>& cols) {
-  for (int prev = 0; prev < row; prev++) {
-    if (cols[prev] == col) return false;
-    if (abs(row - prev) == abs(col - cols[prev])) return false;
-  }
-  return true;
-}
+void solve() {
+  int n; cin >> n;
+  vector<int> v(n);
+  for (int i = 0; i < n; i++) cin >> v[i];
 
-void solve(vector<vector<int>>& solutions, int row, int n, vector<int>& cols) {
-  if (row == n) {
-    solutions.push_back(cols);
-  }
-  for (int col = 0; col < n; col++) {
-    if (safe(row, col, cols)) {
-      cols[row] = col;
-      solve(solutions, row + 1, n, cols);
+  for (int k = 1; k <= n; k++) {
+    int bestSum = -1e9;
+    int bestStart = 0;
+
+    for (int i = 0; i + k <= n; i++) {
+      int sum = 0;
+      for (int j = 0; j < k; j++) {
+        sum += v[i + j];
+      }
+      if (sum > bestSum) {
+        bestSum = sum;
+        bestStart = i;
+      }
+    }
+    for (int j = 0; j < k; j++) {
+      v[bestStart + j] -= 1;
     }
   }
+
+  for (int i = 0; i < n; i++) {
+    if (v[i] != 0) {
+      cout << "NO" << endl;
+      return;
+    }
+  }
+  cout << "YES" << endl;
 }
 
 int main() {
-  int n; cin >> n;
-  vector<vector<int>> solutions;
-  vector<int> cols(n);
+  ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+#ifndef ONLINE_JUDGE
+  // freopen("shell.in", "r", stdin);
+  // freopen("shell.out", "w", stdout);
+#endif
 
-  solve(solutions, 0, n, cols);
-
-  cout << solutions.size() << endl;
+  ll test=1;
+  cin>>test;
+  while(test--)
+  {
+    solve();
+  }
 
   return 0;
 }
