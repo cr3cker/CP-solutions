@@ -1,0 +1,19 @@
+// https://codeforces.com/contest/2167/problem/A
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void solve() {
+  int a, b, c, d;
+  cin >> a >> b >> c >> d;
+
+  if (a == b && b == c && c == d) cout << "YES" << endl;
+  else cout << "NO" << endl;
+}
+
+int main() {
+  int t = 1;
+  cin >> t;
+  while (t--) solve();
+  return 0;
+}
